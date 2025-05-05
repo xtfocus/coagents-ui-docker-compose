@@ -13,3 +13,4 @@ langchain-core>=0.3.25
 langgraph-cli[inmem]>=0.1.64
 langgraph-checkpoint-postgres>=2.0.21
 aiohttp>=3.9.3
+psycopg[binary,pool]>=3.1.18
