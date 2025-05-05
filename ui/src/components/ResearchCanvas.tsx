@@ -25,6 +25,7 @@ export function ResearchCanvas() {
     },
   });
 
+// This block renders the state of agent (calling tools, etc.)
   useCoAgentStateRender({
     name: agent,
     render: ({ state, nodeName, status }) => {
