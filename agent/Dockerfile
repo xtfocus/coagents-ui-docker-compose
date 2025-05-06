@@ -17,5 +17,5 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
-# Run the application
-CMD ["python", "-m", "research_canvas.demo"]
+# Run the application with uvicorn
+CMD ["uvicorn", "research_canvas.langgraph.demo:app", "--host", "0.0.0.0", "--port", "8000"]

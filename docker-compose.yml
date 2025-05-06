@@ -10,7 +10,15 @@ services:
       - "8000:8000"
     volumes:
       - ./agent:/app
-    command: python -m research_canvas.demo
+    command: uvicorn research_canvas.langgraph.demo:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
 
   ui:
     build:
@@ -25,3 +33,17 @@ services:
       - /app/.next
     depends_on:
       - agent
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5442:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -3,7 +3,7 @@ A research canvas application powered by AI agents implemented using LangGraph.
 
 ## Features
 - Research canvas with AI agents
-- Python backend using LangGraph
+- Python backend using LangGraph with PostgreSQL checkpointing
 - Next.js frontend with modern UI components
 - Dockerized deployment for both backend and frontend
 
@@ -20,6 +20,11 @@ A research canvas application powered by AI agents implemented using LangGraph.
    ```
    OPENAI_API_KEY=your_key_here
    TAVILY_API_KEY=your_key_here
+   DB_HOST=postgres
+   DB_PORT=5432
+   DB_USER=postgres
+   DB_PASSWORD=postgres
+   DB_NAME=postgres
    ```
 
    For the UI service (./ui/.env):
@@ -37,6 +42,7 @@ A research canvas application powered by AI agents implemented using LangGraph.
 The application will be available at:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000
+- PostgreSQL: localhost:5442 (if you need to connect directly)
 
 ## Deployment with Docker Compose (RECOMMENDED)
 1. Make sure Docker and Docker Compose are installed on your system.
@@ -46,6 +52,11 @@ The application will be available at:
    ```bash
    OPENAI_API_KEY=your_openai_api_key_here
    TAVILY_API_KEY=your_tavily_api_key_here
+   DB_HOST=postgres
+   DB_PORT=5432
+   DB_USER=postgres
+   DB_PASSWORD=postgres
+   DB_NAME=postgres
    ```
 
    For the UI service, create ./ui/.env:
@@ -62,13 +73,14 @@ The application will be available at:
    This will:
    - Build the Python agent image with uv package manager
    - Build the Next.js UI image
-   - Start both services
+   - Start the PostgreSQL service for LangGraph checkpointing
    - Set up networking between containers
    - Mount appropriate volumes for development
 
 4. Access the application:
    - Frontend UI: http://localhost:3000
    - Backend API: http://localhost:8000
+   - PostgreSQL: localhost:5442
 
 To stop the application:
 ```bash
@@ -96,8 +108,10 @@ cd agent
 python -m venv .venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 uv pip install -r requirements.txt
-python -m research_canvas.demo
+uvicorn research_canvas.langgraph.demo:app --host 0.0.0.0 --port 8000 --reload
 ```
+
+Make sure to set up PostgreSQL locally or update the database connection environment variables to point to your PostgreSQL instance.
 
 ### Frontend
 The frontend is built with Next.js and uses pnpm for package management.
@@ -110,9 +124,10 @@ pnpm dev
 ```
 
 ## Architecture
-The application consists of two main components:
+The application consists of three main components:
 1. Python Agent: Implements the AI research capabilities using LangGraph
 2. Next.js UI: Provides the user interface and canvas interaction
+3. PostgreSQL: Provides persistent storage for LangGraph checkpointing
 
 ## Learn More About the Frontend
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
