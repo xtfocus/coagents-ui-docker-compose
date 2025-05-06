@@ -39,37 +39,6 @@ A research canvas application powered by AI agents implemented using LangGraph.
    docker compose up --build
    ```
 
-The application will be available at:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
-- PostgreSQL: localhost:5442 (if you need to connect directly)
-
-## Deployment with Docker Compose (RECOMMENDED)
-1. Make sure Docker and Docker Compose are installed on your system.
-2. Set up your environment variables in two locations:
-
-   For the agent service, create ./agent/.env:
-   ```bash
-   OPENAI_API_KEY=your_openai_api_key_here
-   TAVILY_API_KEY=your_tavily_api_key_here
-   DB_HOST=postgres
-   DB_PORT=5432
-   DB_USER=postgres
-   DB_PASSWORD=postgres
-   DB_NAME=postgres
-   ```
-
-   For the UI service, create ./ui/.env:
-   ```bash
-   OPENAI_API_KEY=your_openai_api_key_here
-   NEXT_PUBLIC_AGENT_URL=http://agent:8000
-   NEXT_TELEMETRY_DISABLED=1  # Optional: Disable Next.js telemetry
-   ```
-
-3. Build and start the containers:
-   ```bash
-   docker compose up --build
-   ```
    This will:
    - Build the Python agent image with uv package manager
    - Build the Next.js UI image
