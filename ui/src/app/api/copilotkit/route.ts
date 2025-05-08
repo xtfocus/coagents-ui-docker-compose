@@ -13,8 +13,8 @@ export const POST = async (req: NextRequest) => {
     throw new Error('OPENAI_API_KEY environment variable is not set');
   }
 
-  if (!process.env.NEXT_PUBLIC_AGENT_URL) {
-    throw new Error('NEXT_PUBLIC_AGENT_URL environment variable is not set');
+  if (!process.env.AGENT_URL) {
+    throw new Error('AGENT_URL environment variable is not set');
   }
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -45,7 +45,7 @@ export const POST = async (req: NextRequest) => {
           ],
         })
       : copilotKitEndpoint({
-          url: `${process.env.NEXT_PUBLIC_AGENT_URL}/copilotkit`,
+          url: `${process.env.AGENT_URL}/copilotkit`,
         });
 
   const runtime = new CopilotRuntime({

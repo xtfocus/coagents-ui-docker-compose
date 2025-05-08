@@ -30,7 +30,7 @@ A research canvas application powered by AI agents implemented using LangGraph.
    For the UI service (./ui/.env):
    ```
    OPENAI_API_KEY=your_key_here
-   NEXT_PUBLIC_AGENT_URL=http://agent:8000
+   AGENT_URL=http://agent:8000
    NEXT_TELEMETRY_DISABLED=1  # Optional: Disable Next.js telemetry
    ```
 
